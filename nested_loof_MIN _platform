@@ -1,0 +1,32 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int findPlatform(int arr[], int dep[], int n) {
+    sort(arr, arr + n);
+    sort(dep, dep + n);
+
+    int max_platforms = 1;
+
+    for (int i = 0; i < n; i++) {
+        int platforms_needed = 1;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] <= dep[i]) {
+                platforms_needed++;
+            }
+        }
+        max_platforms = max(max_platforms, platforms_needed);
+    }
+
+    return max_platforms;
+}
+
+int main() {
+    int arr[] = { 100, 300, 500 };
+    int dep[] = { 900, 400, 600 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    cout << "Minimum number of platforms required: " << findPlatform(arr, dep, n) << endl;
+
+    return 0;
+}
